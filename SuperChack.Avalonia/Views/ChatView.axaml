@@ -1,0 +1,31 @@
+<UserControl xmlns="https://github.com/avaloniaui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:vm="using:SuperChack.Avalonia.ViewModels"
+             xmlns:models="using:SuperChack.Core.Models"
+             x:Class="SuperChack.Avalonia.Views.ChatView"
+             x:DataType="vm:ChatViewModel">
+
+    <Grid RowDefinitions="*, Auto">
+
+        <ListBox Grid.Row="0" ItemsSource="{Binding Messages}">
+            <ListBox.ItemTemplate>
+                <DataTemplate DataType="{x:Type models:Message}">
+                    <StackPanel Spacing="2">
+                        <TextBlock Text="{Binding Sender}" FontWeight="Bold" FontSize="12"/>
+                        <TextBlock Text="{Binding Text}" TextWrapping="Wrap"/>
+                        <TextBlock Text="{Binding SentAt, StringFormat='{}{0:HH:mm:ss}'}"
+                                   FontSize="10" Opacity="0.6"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+
+        <Grid Grid.Row="1" ColumnDefinitions="*, Auto" Margin="8">
+            <TextBox Grid.Column="0" PlaceholderText="Сообщение..." Text="{Binding MessageText}"/>
+            <Button Grid.Column="1" Content="Отправить"
+                    Command="{Binding SendCommand}"
+                    Margin="8,0,0,0"/>
+        </Grid>
+
+    </Grid>
+</UserControl>
